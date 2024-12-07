@@ -38,6 +38,7 @@ jobs:
           SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
           SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
         run: |
+          mkdir -p ~/.snowcli
           echo "[connections.snowflake]" >> ~/.snowcli/config
           echo "account = $SNOWFLAKE_ACCOUNT" >> ~/.snowcli/config
           echo "user = $SNOWFLAKE_USER" >> ~/.snowcli/config
