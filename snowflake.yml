@@ -1,7 +1,6 @@
 definition_version: 1
-entities:
-    query_warehouse: COMPUTE_WH
-    main_file: streamlit_app.py
-    artifacts:
-      - common/hello.py
-      - environment.yml
+query_warehouse: COMPUTE_WH
+main_file: streamlit_app.py
+  artifacts:
+    - common/hello.py
+    - environment.yml
