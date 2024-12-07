@@ -51,7 +51,7 @@ jobs:
       # Deploy the Streamlit app
       - name: Deploy to Snowflake
         run: |
-          snow streamlit deploy
+          snow streamlit deploy sales_app
 
       # Post-deployment validation (Optional)
       - name: Validate Deployment
