@@ -28,6 +28,14 @@ jobs:
           pip install -r requirements.txt
           pip install snowcli
 
+      - name: mkdir
+        run: |
+          $dirName = "/home/runner/.snowcli/config"
+          if (Test-Path $dirName) {
+          Remove-Item -Recurse -Force $dirName
+          New-Item -ItemType Directory -Path $dirName
+
+
       # Authenticate with Snowflake
       - name: Configure Snowflake Authentication
         env:
