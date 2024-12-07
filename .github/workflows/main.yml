@@ -1,4 +1,4 @@
-name: Deploy Streamlit App to Snowflake
+name: Deploy Streamlit App to SnowflakeS
 
 on:
   push:
