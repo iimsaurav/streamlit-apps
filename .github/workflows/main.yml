@@ -26,7 +26,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install snowcli
           pip install snowflake-cli
           snow --version
 
@@ -57,4 +56,4 @@ jobs:
       # Post-deployment validation (Optional)
       - name: Validate Deployment
         run: |
-          snowcli app describe --name streamlit_app_name
+          snow app describe --name streamlit_app_name
