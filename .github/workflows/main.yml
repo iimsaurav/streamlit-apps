@@ -27,6 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install snowcli
+          pip install snowflake-cli
           snow --version
 
       # Authenticate with Snowflake
