@@ -31,7 +31,8 @@ jobs:
       - name: mkdir
         run: |
           if (Test-Path /home/runner/.snowcli/config) {
-          Remove-Item -Recurse -Force /home/runner/.snowcli/config
+            Remove-Item -Recurse -Force /home/runner/.snowcli/config 
+            }
           New-Item -ItemType Directory -Path /home/runner/.snowcli/config
 
 
