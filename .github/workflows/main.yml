@@ -30,10 +30,9 @@ jobs:
 
       - name: mkdir
         run: |
-          $dirName = "/home/runner/.snowcli/config"
-          if (Test-Path $dirName) {
-          Remove-Item -Recurse -Force $dirName
-          New-Item -ItemType Directory -Path $dirName
+          if (Test-Path /home/runner/.snowcli/config) {
+          Remove-Item -Recurse -Force /home/runner/.snowcli/config
+          New-Item -ItemType Directory -Path /home/runner/.snowcli/config
 
 
       # Authenticate with Snowflake
