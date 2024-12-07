@@ -6,7 +6,7 @@ entities:
       name: sales_cost
     main_file: streamlit_app.py
     pages_dir: pages
-    query_warehouse: dev_warehouse
+    query_warehouse: COMPUTE_WH
     stage: testing
     artifacts:
       - streamlit_app.py
