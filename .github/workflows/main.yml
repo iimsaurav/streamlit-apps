@@ -50,7 +50,7 @@ jobs:
       # Deploy the Streamlit app
       - name: Deploy to Snowflake
         run: |
-          snowcli app deploy --file path/to/app/streamlit_app.py
+          snow streamlit deply streamlit_app.py
 
       # Post-deployment validation (Optional)
       - name: Validate Deployment
