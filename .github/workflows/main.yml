@@ -28,11 +28,6 @@ jobs:
           pip install -r requirements.txt
           pip install snowcli
 
-      - name: mkdir
-        run: |
-          python dir.py
-
-
       # Authenticate with Snowflake
       - name: Configure Snowflake Authentication
         env:
