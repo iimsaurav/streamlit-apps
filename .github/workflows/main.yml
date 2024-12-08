@@ -39,7 +39,7 @@ jobs:
           echo "SCHEMA=$SNOWFLAKE_SCHEMA" >> $GITHUB_ENV
           echo "ROLE=$SNOWFLAKE_ROLE" >> $GITHUB_ENV
 
-      # Configure the Snowflake CLI with necessary credentials and settings
+      # Configure the Snowflake CLI with necessary credentials and setting
       - name: Create snowcli config
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
