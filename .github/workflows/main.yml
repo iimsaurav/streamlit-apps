@@ -39,7 +39,7 @@ jobs:
           echo "SCHEMA=$SNOWFLAKE_SCHEMA" >> $GITHUB_ENV
           echo "ROLE=$SNOWFLAKE_ROLE" >> $GITHUB_ENV
 
-      # Configure the Snowflake CLI with necessary credentials and setting
+      # Configure the Snowflake CLI with necessary credentials and settings
       - name: Create snowcli config
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
@@ -48,10 +48,10 @@ jobs:
         run: |
           mkdir -p ~/.snowflake
           cat << EOF > ~/.snowflake/config.toml
-          [connections.snowflake]
-          account = "aedkavs-is37277" 
-          user = "kgaurav765"
-          password = "Globe@12345"
+          [connections.default]
+          account = "$SNOWFLAKE_ACCOUNT"
+          user = "$SNOWFLAKE_USER"
+          password = "$SNOWFLAKE_PASSWORD"
           connection_timeout = 600
           database = "$SNOWFLAKE_DATABASE"
           schema = "$SNOWFLAKE_SCHEMA"
