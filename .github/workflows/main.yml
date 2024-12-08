@@ -53,9 +53,9 @@ jobs:
           user = "$SNOWFLAKE_USER"
           password = "$SNOWFLAKE_PASSWORD"
           connection_timeout = 600
-          database = "$DATABASE"
-          schema = "$SCHEMA"
-          role = "$ROLE"
+          database = "$SNOWFLAKE_DATABASE"
+          schema = "$SNOWFLAKE_SCHEMA"
+          role = "$SNOWFLAKE_ROLE"
           EOF
           chmod 0600 ~/.snowflake/config.toml
 
