@@ -52,9 +52,9 @@ jobs:
           account = "aedkavs-is37277" 
           user = "kgaurav765"
           password = "Globe@12345"
-          account = "$SNOWFLAKE_ACCOUNT"
-          user = "$SNOWFLAKE_USER"
-          password = "$SNOWFLAKE_PASSWORD"
+#account = "$SNOWFLAKE_ACCOUNT"
+#user = "$SNOWFLAKE_USER"
+#password = "$SNOWFLAKE_PASSWORD"
           connection_timeout = 600
           database = "$SNOWFLAKE_DATABASE"
           schema = "$SNOWFLAKE_SCHEMA"
