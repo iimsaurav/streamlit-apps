@@ -1,4 +1,4 @@
-name: gha-deploy
+name: app-deploy
 channels:
   - snowflake
 dependencies:
