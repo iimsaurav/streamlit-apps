@@ -1,4 +1,4 @@
-name: sf_env
+name: dev_env
 channels:
   - snowflake
 dependencies:
