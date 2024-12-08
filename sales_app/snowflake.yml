@@ -1,4 +1,4 @@
-efinition_version: 1
+definition_version: 1
 streamlit:
   name: sales_app
   query_warehouse: compute_wh
