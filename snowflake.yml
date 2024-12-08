@@ -1,11 +1,12 @@
 definition_version: 1
 streamlit:
-  name: sales_app
+  name: sample_app
   query_warehouse: compute_wh
   main_file: streamlit_app.py
   env_file: environment.yml
-  database: sales
-  schema: dev
+  database: streamlit_apps
+  schema: public
+  role: accountadmin
   pages_dir: pages/
   additional_source_files:
     - common/*.py

@@ -1,0 +1,8 @@
+name: gha-deploy
+channels:
+  - snowflake
+dependencies:
+  - python=3.8.12
+  - streamlit=1.26.0
+  - snowflake-snowpark-python=1.11.1
+  - plotly
