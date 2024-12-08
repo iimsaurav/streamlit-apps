@@ -1,18 +1,12 @@
-definition_version: 11
-entities:
-  my_streamlit:
-    type: streamlit
-    identifier: streamlit_app
-    stage: my_streamlit_stage
-    query_warehouse: COMPUTE_WH
-    main_file: streamlit_app.py
-    pages_dir: pages/
-    external_access_integrations:
-      - test_egress
-    secrets:
-      dummy_secret: "sales.dev.dummy_secret"
-    imports:
-      - "@my_stage/foo.py"
-    artifacts:
-      - common/hello.py
-      - environment.yml
+efinition_version: 1
+streamlit:
+  name: sales_app
+  query_warehouse: compute_wh
+  main_file: streamlit_app.py
+  env_file: environment.yml
+  database: sales
+  schema: dev
+  role: accountadmin
+  pages_dir: pages/
+  additional_source_files:
+    - common/*.py
