@@ -6,7 +6,6 @@ streamlit:
   env_file: environment.yml
   database: sales
   schema: dev
-  role: accountadmin
   pages_dir: pages/
   additional_source_files:
     - common/*.py
