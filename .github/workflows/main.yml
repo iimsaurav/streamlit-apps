@@ -48,7 +48,10 @@ jobs:
         run: |
           mkdir -p ~/.snowflake
           cat << EOF > ~/.snowflake/config.toml
-          [connections.default]
+          [connections.snowflake]
+          account = "aedkavs-is37277" 
+          user = "kgaurav765"
+          password = "Globe@12345"
           account = "$SNOWFLAKE_ACCOUNT"
           user = "$SNOWFLAKE_USER"
           password = "$SNOWFLAKE_PASSWORD"
