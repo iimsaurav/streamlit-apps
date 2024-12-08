@@ -51,7 +51,14 @@ jobs:
       # Deploy the Streamlit app
       - name: Deploy to Snowflake
         run: |
-          snow streamlit deploy -p sales_app --replace
+          snow streamlit deploy -p sales_app \
+            --replace \
+            --account aedkavs-is37277 \
+            --user kgaurav765 \
+            --password Globe@12345 \
+            --database sales \
+            --schema dev \
+            --warehouse COMPUTE_WH
 
       # Post-deployment validation (Optional)
       - name: Validate Deployment
