@@ -35,9 +35,9 @@ jobs:
           export DATABASE=$(yq -e eval '.streamlit.database' snowflake.yml)
           export SCHEMA=$(yq -e eval '.streamlit.schema' snowflake.yml)
           export ROLE=$(yq -e eval '.streamlit.role' snowflake.yml)
-          echo "DATABASE=$SNOWFLAKE_DATABASE" >> $GITHUB_ENV
-          echo "SCHEMA=$SNOWFLAKE_SCHEMA" >> $GITHUB_ENV
-          echo "ROLE=$SNOWFLAKE_ROLE" >> $GITHUB_ENV
+          echo "DATABASE=SALES" >> $GITHUB_ENV
+          echo "SCHEMA=DEV" >> $GITHUB_ENV
+          echo "ROLE=ACCOUNTADMIN" >> $GITHUB_ENV
 
       # Configure the Snowflake CLI with necessary credentials and setting
       - name: Create snowcli config
@@ -53,9 +53,9 @@ jobs:
           user = "$SNOWFLAKE_USER"
           password = "$SNOWFLAKE_PASSWORD"
           connection_timeout = 600
-          database = "$SNOWFLAKE_DATABASE"
-          schema = "$SNOWFLAKE_SCHEMA"
-          role = "$SNOWFLAKE_ROLE"
+          database = "SALES"
+          schema = "DEV"
+          role = "ACCOUNTADMIN"
           EOF
           chmod 0600 ~/.snowflake/config.toml
 
