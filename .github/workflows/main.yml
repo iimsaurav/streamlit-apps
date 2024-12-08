@@ -1,58 +1,65 @@
-name: Deploy Streamlit App to SnowflakeS
+name: Deploy App via snowcli
 
+# Trigger the workflow on a push to the 'main' branch
 on:
   push:
     branches:
-      - main  # Deploy only on pushes to the `main` branch
-  workflow_dispatch:  # Allows manual trigger of the workflow
+      - main
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Ensure the 'ubuntu-latest' environment is available in your CI setup
+    environment: production
 
     steps:
-      # Checkout the code
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4 # Check out the repository code
 
-      # Set up Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      # Set up Python 3.8 for the job
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'  # Specify the Python version
+          python-version: 3.8
+          cache: "pip"
 
-      # Install Dependencies
-      - name: Install Dependencies
+      # Install the Snowflake CLI (ensure version compatibility)
+      - name: Install snowcli
+        run: pip install snowflake-cli-labs~=2.1
+
+      # Install 'yq' for parsing the snowflake.yml file
+      - name: Install yq
+        run: sudo snap install yq
+
+      # Get the database and schema from the snowflake.yml file and save them to the environment
+      - name: Set environment variables
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install snowflake-cli
-          snow --version
+          export DATABASE=$(yq -e eval '.streamlit.database' snowflake.yml)
+          export SCHEMA=$(yq -e eval '.streamlit.schema' snowflake.yml)
+          export ROLE=$(yq -e eval '.streamlit.role' snowflake.yml)
+          echo "DATABASE=$DATABASE" >> $GITHUB_ENV
+          echo "SCHEMA=$SCHEMA" >> $GITHUB_ENV
+          echo "ROLE=$ROLE" >> $GITHUB_ENV
 
-      # Authenticate with Snowflake
-      - name: Configure Snowflake Authentication
+      # Configure the Snowflake CLI with necessary credentials and settings
+      - name: Create snowcli config
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
           SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
-          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
         run: |
-          mkdir -p ~/.snowcli
-          echo "[connections.snowflake]" >> ~/.snowcli/config
-          echo "account = $SNOWFLAKE_ACCOUNT" >> ~/.snowcli/config
-          echo "user = $SNOWFLAKE_USER" >> ~/.snowcli/config
-          echo "password = $SNOWFLAKE_PASSWORD" >> ~/.snowcli/config
-          echo "role = $SNOWFLAKE_ROLE" >> ~/.snowcli/config
-          echo "database = $SNOWFLAKE_DATABASE" >> ~/.snowcli/config
-          echo "schema = $SNOWFLAKE_SCHEMA" >> ~/.snowcli/config
+          mkdir -p ~/.snowflake
+          cat << EOF > ~/.snowflake/config.toml
+          [connections.default]
+          account = "$SNOWFLAKE_ACCOUNT"
+          user = "$SNOWFLAKE_USER"
+          password = "$SNOWFLAKE_PASSWORD"
+          connection_timeout = 600
+          database = "$DATABASE"
+          schema = "$SCHEMA"
+          role = "$ROLE"
+          EOF
+          chmod 0600 ~/.snowflake/config.toml
 
-      # Deploy the Streamlit app
-      - name: Deploy to Snowflake
-        run: |
-          snow streamlit deploy -p sales_app
-      # Post-deployment validation (Optional)
-      - name: Validate Deployment
-        run: |
-          snow app describe --name streamlit_app_name
+      # Deploy the Streamlit app using the Snowflake CLI
+      - name: Deploy the streamlit app
+        shell: bash
+        run: snow streamlit deploy --replace >> $GITHUB_STEP_SUMMARY
