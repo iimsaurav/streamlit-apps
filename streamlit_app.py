@@ -17,7 +17,7 @@ import plotly.express as px
 
 
 # Streamlit UI setup
-st.title('Snowflake Orders')
+st.title('Snowflake Orders Streamlit app')
 
 # Filter: Customer Key
 customer_key = st.selectbox("Select Customer Key", [None] + list(range(1, 100)))  # Adjust based on your customer keys

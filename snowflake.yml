@@ -1,6 +1,6 @@
 definition_version: 1
 streamlit:
-  name: sales_app
+  name: streamlit_sales_app
   query_warehouse: compute_wh
   main_file: streamlit_app.py
   env_file: environment.yml
